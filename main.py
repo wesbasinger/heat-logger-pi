@@ -3,6 +3,7 @@ import glob
 import time
 import requests
 import json
+import datetime
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -43,9 +44,10 @@ while True:
         data = {
             "timestamp" : time.time(),
             "temp" : fahrenheit,
-            "location" : LOCATION
+            "location" : LOCATION,
+            "datetime" : '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         }
 
         requests.post(url=API_ENDPOINT, data=json.dumps(data))
 
-	time.sleep(10)
+	time.sleep(300)
